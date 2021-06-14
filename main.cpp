@@ -1,5 +1,9 @@
 #include <iostream>
 #include <ctime>
+#include <string>
+#include <fstream>
+
+
 
 /*
 * Еще не все успел сделать =(
@@ -41,6 +45,18 @@ void pintArray(int** ppArr, const int arrSIZE)
         std::cout << std::endl;
     }
    
+
+}
+
+void writeFile(std::ofstream & outPot, const std::string fileName, const std::string text)
+{
+    outPot.open(fileName);
+    if (outPot.is_open())
+    {
+        outPot << text;
+        outPot.close();
+    }
+
 
 }
 
@@ -160,8 +176,26 @@ void task2()
 void task3()
 {
     /*
-    * 
+        *  Написать программу c 2-я функциями, которая создаст два текстовых файла (*.txt), примерно по 50-100 символов
+        в каждом (особого значения не имеет с каким именно содержимым). Имена файлов запросить у польлзователя.
     */
+    std::cout << "Enter file name 1 - ";
+    std::string name1, name2;
+    std::cin >> name1;
+    std::cout << std::endl;
+    std::cout << "Enter file name 2 - ";
+    std::cin >> name2;
+    std::cout << std::endl;
+
+    std::ofstream fOut1;
+    const std::string text1 = "Hello world, my first program for write file";
+    writeFile(fOut1, name1, text1);
+
+    std::ofstream fOut2;
+    const std::string text2 = "Create second file...";
+    writeFile(fOut2, name2, text2);
+
+
 }
 
 void task4()
