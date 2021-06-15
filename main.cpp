@@ -23,6 +23,9 @@
     * Написать программу, которая проверяет присутствует ли указанное пользователем при запуске программы
     слово в указанном пользователем файле (для простоты работаем только с латиницей).
 */
+
+std::string name1, name2;
+
 void pintArray(int* pArr, const int arrSIZE)
 {
     std::cout << "Print Array:" << std::endl;
@@ -58,6 +61,27 @@ void writeFile(std::ofstream & outPot, const std::string fileName, const std::st
     }
 
 
+}
+
+std::string readFile(std::ifstream & fin, const std::string fileName)
+{
+    std::string result;
+    fin.open(fileName);
+    if(fin.is_open())
+    {
+        do
+        {
+            std::string buf;
+            getline(fin, buf);
+            result = buf;
+        } while (!fin.eof());
+    }
+    else
+    {
+        std::cout << "Error opening file" << std::endl;
+    }
+    fin.close();
+    return result;
 }
 
 void leesenLoop()
@@ -108,6 +132,24 @@ void leesenLoop()
     ppArr = nullptr;
 
 }
+
+void memoryWrite()
+{
+   const int SIZE = 5;
+   int arr[SIZE]{5, 14, 4, 53, 3};
+
+   std::ofstream fout("1.txt"); // Создаем поток записи в файл.
+
+    fout << "My array" << std::endl; // Записиваем в поток.
+
+    for (const auto& element : arr)
+    {
+        fout << element << std::endl;
+    }
+    
+   fout.close(); // Закрываем поток.
+
+} 
 
 void task1()
 {
@@ -180,7 +222,6 @@ void task3()
         в каждом (особого значения не имеет с каким именно содержимым). Имена файлов запросить у польлзователя.
     */
     std::cout << "Enter file name 1 - ";
-    std::string name1, name2;
     std::cin >> name1;
     std::cout << std::endl;
     std::cout << "Enter file name 2 - ";
@@ -188,7 +229,7 @@ void task3()
     std::cout << std::endl;
 
     std::ofstream fOut1;
-    const std::string text1 = "Hello world, my first program for write file";
+    const std::string text1 = "Hello world, my first program for write file. ";
     writeFile(fOut1, name1, text1);
 
     std::ofstream fOut2;
@@ -196,10 +237,29 @@ void task3()
     writeFile(fOut2, name2, text2);
 
 
+
+
 }
 
 void task4()
 {
+  /*
+    * Написать функцию, «склеивающую» эти файлы в третий текстовый файл (имя файлов спросить у пользователя).
+  */
+    std::ifstream fIn;
+    std::string buf1 = readFile(fIn, name1);
+    std::string buf2 = readFile(fIn, name2);
+
+    std::cout << "Enter file name - ";
+    std::string myName;
+    std::cin >> myName;
+
+    std::string result = buf1 + buf2;
+    std::ofstream fOut1;
+    writeFile(fOut1, myName, result);
+    //writeFile(fOut1, myName, buf2);
+
+
 
 }
 
@@ -212,10 +272,11 @@ int main()
 {
     srand(time(NULL));
     //leesenLoop();
-    task1();
-    task2();
+    //memoryWrite();
+    //task1();
+    //task2();
     task3();
     task4();
-    task5();
+    //task5();
 
 }
