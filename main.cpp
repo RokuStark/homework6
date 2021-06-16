@@ -263,20 +263,49 @@ void task4()
 
 }
 
-void task5()
+bool task5()
 {
+   
+    /*
+     * Написать программу, которая проверяет присутствует ли указанное пользователем при запуске программы
+    слово в указанном пользователем файле (для простоты работаем только с латиницей).
+    */
 
+   std::cout << "Enter seach word - ";
+   std::string searchWord;
+   std::cin >> searchWord;
+  
+  
+   const std::string fileName = "res";
+   std::ifstream file(fileName);
+
+   if (file.is_open())
+   {
+       std::string line;
+
+       while (!file.eof())
+       {
+            getline(file, line);
+            if(line.find(searchWord) != std::string::npos)
+            {
+                return true;
+            }
+
+       }
+   }
+   return false;
 }
 
 int main()
 {
     srand(time(NULL));
-    //leesenLoop();
-    //memoryWrite();
-    //task1();
-    //task2();
+    //leesenLoop(); // Примеры с лекции
+    //memoryWrite(); // Пример записи массива в txt файл.
+    task1();
+    task2();
     task3();
+    std::cout << "Third file name -> res  !!!" << std::endl;
     task4();
-    //task5();
+    std::cout << task5() << std::endl;
 
 }
